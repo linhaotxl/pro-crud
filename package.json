@@ -13,7 +13,10 @@
     "build": "vue-tsc --noEmit && vite build",
     "prepare": "husky install",
     "lint:js": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
-    "release": "pnpm run build & release-it"
+    "release": "pnpm run build & release-it",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
   },
   "keywords": [
     "vue3",
@@ -88,6 +91,7 @@
     "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-svg-loader": "^4.0.0",
+    "vitepress": "1.0.0-rc.7",
     "vue-eslint-parser": "^9.1.0",
     "vue-router": "^4.2.4",
     "vue-tsc": "^1.8.5"
@@ -99,5 +103,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search",
+        "search-insights"
+      ]
+    }
   }
 }
