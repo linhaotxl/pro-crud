@@ -8,9 +8,9 @@ import { merge } from 'lodash-es'
 
 import type { NotificationArgsProps } from 'ant-design-vue/es/notification'
 
-export type SuccessToastOptions =
-  | false
-  | string
+export type SuccessToastOptions = false | string | NormalizeToastOptions
+
+export type NormalizeToastOptions =
   | {
       type: 'message'
       props?: MessageArgsProps
@@ -20,30 +20,41 @@ export type SuccessToastOptions =
       props?: NotificationArgsProps
     }
 
-const DefaultSuccessToastOptions = { type: 'message' }
+const DefaultSuccessToastOptions = { type: 'message' } as const
 
 const { message, notification } = App.useApp() ?? {
   message: _message,
   notification: _notification,
 }
 
-export function showToast(
-  toast?: SuccessToastOptions,
-  defaultToast?: SuccessToastOptions
-) {
-  if (toast !== false) {
-    const content = typeof toast === 'string' ? toast : undefined
-    const mergeToast = merge(
-      defaultToast,
-      content ? { props: { content, message: content } } : undefined,
-      DefaultSuccessToastOptions,
-      toast
-    )
-    if (mergeToast.type === 'message') {
-      // @ts-ignore
-      message.success(mergeToast.props.title)
-    } else if (mergeToast.type === 'notification') {
-      notification.success(mergeToast.props)
-    }
+const DefaultSuccessMessage = '操作成功'
+
+export function showToast(toast: SuccessToastOptions | undefined) {
+  if (toast === false) {
+    return
+  }
+
+  const content =
+    (toast
+      ? typeof toast === 'string'
+        ? toast
+        : toast.type === 'message'
+        ? toast.props?.content
+        : toast.type === 'notification'
+        ? toast.props?.message
+        : DefaultSuccessMessage
+      : DefaultSuccessMessage) ?? DefaultSuccessMessage
+
+  const merged: NormalizeToastOptions = merge(
+    {},
+    DefaultSuccessToastOptions,
+    typeof toast === 'string' ? undefined : toast
+  )
+
+  if (merged.type === 'message') {
+    // @ts-ignore
+    message.success({ ...merged.props, content })
+  } else if (merged.type === 'notification') {
+    notification.success({ ...merged.props, message: content })
   }
 }

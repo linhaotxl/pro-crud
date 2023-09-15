@@ -31,7 +31,6 @@ import { unRef, useDictionary } from '../common'
 import { buildForm, type ProFormColumnOptions } from '../ProForm'
 import { buildSearch } from '../ProSearch'
 import { buildTable } from '../ProTable'
-import { showToast } from '../Toast'
 
 import { GlobalOption } from '~/constant'
 
@@ -401,6 +400,7 @@ const buildAddFormMiddleware: Middleware<
             },
           },
         },
+        toast: ctx.optionResult.addToast ?? DefaultAddFormToast,
       },
       ctx.optionResult.form,
       ctx.optionResult.addForm,
@@ -409,7 +409,6 @@ const buildAddFormMiddleware: Middleware<
         submitRequest: ctx.optionResult.addRequest,
         successRequest() {
           hideDialog()
-          showToast(ctx.optionResult.addToast, DefaultAddFormToast)
           ctx.scope.table.reload()
         },
       }
@@ -495,6 +494,7 @@ const buildEditFormMiddleware: Middleware<
             },
           },
         },
+        toast: ctx.optionResult.editToast ?? DefaultEditFormToast,
       },
       ctx.optionResult.form,
       ctx.optionResult.editForm,
@@ -503,7 +503,6 @@ const buildEditFormMiddleware: Middleware<
         submitRequest: ctx.optionResult.editRequest,
         successRequest() {
           hideDialog()
-          showToast(ctx.optionResult.editToast, DefaultEditFormToast)
           ctx.scope.table.reload()
         },
       }

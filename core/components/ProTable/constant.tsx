@@ -1,7 +1,7 @@
 import { ConfigProvider, FormItem, type SpaceProps } from 'ant-design-vue'
 import { h, inject, resolveComponent } from 'vue'
 
-import { ValueTypeMap, type ValueType, genToast } from '../common'
+import { ValueTypeMap, type ValueType } from '../common'
 import { DynamicVModel, buildFormColumn } from '../ProForm'
 
 import type {
@@ -129,4 +129,4 @@ export const DefaultActionColumn: ProTableActionProps<any> = {
   confirmType: false,
 }
 
-export const EditSuccessToast = genToast('编辑成功')
+export const EditSuccessToast = '编辑成功'

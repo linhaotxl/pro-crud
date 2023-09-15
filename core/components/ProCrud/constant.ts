@@ -1,5 +1,3 @@
-import { genToast } from '../common'
-
 import type { ProSearchInstance } from './../ProSearch/interface'
 import type { ProTableInstance } from './../ProTable/interface'
 import type { CrudDialogOption } from './interface'
@@ -41,10 +39,10 @@ export const DefaultCrudForm = {
   row: { gutter: 16 },
 }
 
-export const DefaultEditFormToast = genToast('编辑成功')
+export const DefaultEditFormToast = '编辑成功'
 
-export const DefaultAddFormToast = genToast('新增成功')
+export const DefaultAddFormToast = '新增成功'
 
-export const DeleteRecordToast = genToast('删除成功')
+export const DeleteRecordToast = '删除成功'
 
 export const ConfirmDeleteContent = '确认删除这一项？'
