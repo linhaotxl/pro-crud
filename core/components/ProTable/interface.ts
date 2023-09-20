@@ -305,6 +305,11 @@ export type BuildProTableOptionResult<
   fetchTableData?: FetchTableListRequest<T, P>
 
   /**
+   * 处理请求的数据
+   */
+  postData?: (data: T[]) => T[]
+
+  /**
    * 提交编辑行内容
    */
   submitEditable?: (

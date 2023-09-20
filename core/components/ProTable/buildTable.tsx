@@ -101,6 +101,7 @@ export function buildTable<T extends object, C, P extends object = any>(
     params,
     action,
     fetchDictCollection,
+    postData,
     onLoad,
     fetchTableData,
     submitEditable,
@@ -303,7 +304,7 @@ export function buildTable<T extends object, C, P extends object = any>(
       const tableResult = await fetchTableData?.(resolvedQuery)
       const { data: d = [], total: t = 1 } = tableResult ?? {}
 
-      data.value = d
+      data.value = postData?.(d) ?? d
 
       total.value = t
 
