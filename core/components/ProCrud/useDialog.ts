@@ -11,7 +11,6 @@ export function useDialog<T extends object = any>(form: ProFormInstance<T>) {
 
   function showDialog(values?: T) {
     open.value = true
-    form.reset()
 
     if (values) {
       setTimeout(() => {
@@ -22,6 +21,7 @@ export function useDialog<T extends object = any>(form: ProFormInstance<T>) {
 
   function hideDialog() {
     open.value = false
+    form.reset()
   }
 
   function merged(props?: ModalProps) {

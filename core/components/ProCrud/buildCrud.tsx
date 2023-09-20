@@ -262,7 +262,7 @@ const buildTableMiddleware: Middleware<
               tooltip: { title: '添加' },
               props: {
                 icon: h(PlusOutlined),
-                onClick: ctx.scope.addForm.showDialog,
+                onClick: () => ctx.scope.addForm.showDialog(),
               },
             },
           },
