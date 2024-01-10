@@ -1,11 +1,30 @@
 <template>
-  <pro-crud ref="proCrudRef" v-bind="proCrudBinding" />
+  <pro-crud ref="proCrudRef" class="pro-crud-07" v-bind="proCrudBinding" />
 </template>
 
 <script lang="tsx" setup>
+import { useScrollbar } from 'use-scrollbars'
+import { onMounted } from 'vue'
+
 import { buildCrud } from '~/index'
 
-const { proCrudBinding, proCrudRef } = buildCrud(() => {
+const { proCrudBinding, proCrudRef } = buildCrud(scope => {
+  onMounted(() => {
+    const $table = scope.table.getTableRef().value
+    const $container = $table.$el.querySelector('.ant-table-container')
+    const $header = $table.$el.querySelector('.ant-table-header')
+
+    console.log(1, $container, $header)
+
+    const barStates = useScrollbar($container)
+
+    barStates.setOffset({
+      y: {
+        top: $header,
+      },
+    })
+  })
+
   return {
     async fetchDictCollection() {
       // debugger
@@ -395,6 +414,25 @@ const { proCrudBinding, proCrudRef } = buildCrud(() => {
         view: { show: false },
       },
     },
+
+    table: {
+      autoFill: true,
+    },
   }
 })
 </script>
+
+<style scoped>
+.pro-crud-07 {
+  height: 100%;
+}
+
+.pro-crud-07 :deep(.ant-table-container) {
+  position: relative;
+}
+
+.pro-crud-07 :deep(.ant-table-body::-webkit-scrollbar) {
+  width: 0;
+  height: 0;
+}
+</style>

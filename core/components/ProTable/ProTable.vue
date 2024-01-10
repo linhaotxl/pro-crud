@@ -1,5 +1,5 @@
 <template>
-  <div class="pro-table-container">
+  <div class="pro-table-container" :class="{ 'auto-fill': autoFill }">
     <div class="pro-table-top">
       <div class="pro-table-actionbar"></div>
 
@@ -35,10 +35,11 @@
       </div>
     </div>
 
-    <a-form :model="editableTableData?.values">
+    <a-form class="pro-table-edit-form" :model="editableTableData?.values">
       <a-table
         ref="tableRef"
         class="pro-table"
+        :class="{ 'auto-fill': autoFill }"
         v-bind="tableProps.value"
         :loading="loading.value"
         :columns="columns.value"
@@ -56,9 +57,9 @@
 </template>
 
 <script lang="ts" setup generic="T extends object">
-// import { toRaw } from 'vue'
+import { inject } from 'vue'
 
-// import ProTableColumn from './ProTableColumn.vue'
+import { ProTableRefKey } from './constant'
 
 import type { ProTableProps } from './interface'
 
@@ -66,14 +67,69 @@ defineOptions({ name: 'ProTable' })
 
 defineProps<ProTableProps<T>>()
 
-// const tableRef = toRaw(p).tableRef
-
-// defineExpose<ProTableInstance<T>>({
-//   ...p.scope,
-// })
+const tableRef = inject(ProTableRefKey)
 </script>
 
 <style scoped>
+.pro-table-container.auto-fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pro-table-container.auto-fill .pro-table-edit-form {
+  overflow: auto;
+  height: 100%;
+  flex: 1;
+}
+
+.pro-table.auto-fill {
+  overflow: auto;
+  height: 100%;
+}
+
+.pro-table.auto-fill :deep(> .ant-spin-nested-loading) {
+  overflow: auto;
+  height: 100%;
+}
+
+.pro-table.auto-fill :deep(> .ant-spin-nested-loading > .ant-spin-container) {
+  display: flex;
+  overflow: auto;
+  height: 100%;
+  flex-direction: column;
+}
+
+.pro-table.auto-fill
+  :deep(> .ant-spin-nested-loading > .ant-spin-container > .ant-table) {
+  flex: 1;
+  overflow: auto;
+}
+
+.pro-table.auto-fill
+  :deep(
+    > .ant-spin-nested-loading
+      > .ant-spin-container
+      > .ant-table
+      > .ant-table-container
+  ) {
+  display: flex;
+  overflow: auto;
+  height: 100%;
+  flex-direction: column;
+}
+
+.pro-table.auto-fill
+  :deep(
+    > .ant-spin-nested-loading
+      > .ant-spin-container
+      > .ant-table
+      > .ant-table-container
+      > .ant-table-body
+  ) {
+  flex: 1;
+}
+
 .pro-table-top {
   display: flex;
   justify-content: space-between;

@@ -6930,6 +6930,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.6
       '@rollup/pluginutils': 5.0.3
+      '@vueuse/core': 10.5.0_vue@3.3.4
       local-pkg: 0.4.3
       magic-string: 0.27.0
       unimport: 2.2.4

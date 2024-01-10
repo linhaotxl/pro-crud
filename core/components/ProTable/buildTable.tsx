@@ -14,6 +14,7 @@ import {
   DefaultPageNumber,
   DefaultPageSize,
   EditableTableData,
+  ProTableRefKey,
 } from './constant'
 import { useAction } from './useAction'
 import { useColumns } from './useColumns'
@@ -57,7 +58,9 @@ export function buildTable<T extends object, C, P extends object = any>(
   ) => BuildProTableOptionResult<T, P>,
   ctx?: C | undefined
 ): BuildProTableResult<T> {
-  // const elTableRef = ref<any | null>(null)
+  const tableRef = ref<any>(null)
+
+  provide(ProTableRefKey, tableRef)
 
   // 作用域对象
   const scope: ProTableScope<T> = {
@@ -67,6 +70,9 @@ export function buildTable<T extends object, C, P extends object = any>(
     reload,
     startEditable,
     cancelEditable,
+    getTableRef() {
+      return tableRef
+    },
     validateEditable(rowKey) {
       if (!editableTableData) {
         return false
@@ -88,6 +94,7 @@ export function buildTable<T extends object, C, P extends object = any>(
   }
 
   const {
+    autoFill = true,
     immediate = true,
     columns: originColumns = [],
     data: originData,
@@ -248,6 +255,14 @@ export function buildTable<T extends object, C, P extends object = any>(
           total: total.value,
         }
       )
+    }
+
+    if (autoFill && !result.scroll) {
+      result.scroll = {
+        scrollToFirstRowOnChange: true,
+        y: 'auto',
+        x: 'max-content',
+      }
     }
 
     return result
@@ -423,6 +438,7 @@ export function buildTable<T extends object, C, P extends object = any>(
       toolbar,
       scope,
       editableTableData,
+      autoFill,
       // editFormBinding,
     },
   }

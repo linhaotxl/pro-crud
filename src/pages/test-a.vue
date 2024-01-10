@@ -1,45 +1,112 @@
 <template>
-  <el-button @click="handleChageNameProp">Change Name Prop</el-button>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="Date" width="180" />
-    <el-table-column :prop="nameProp" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" />
-  </el-table>
+  <div>
+    <!-- custom-scrollbar -->
+    <div ref="elemRef" class="complex-component-example cutom-scrollbar">
+      <div class="content-wrapper">
+        <pre class="content">
+// use-scrollbar
+function hello2() {
+  console.log('hello world!')
+  console.log('I like cola and cola and longcola and longcola and longcola and longcola and longcola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+}
+
+function world() {
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+}
+
+function world() {
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+  console.log('hello world!')
+  console.log('I like cola and cola')
+}
+          </pre
+        >
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
+import { useScrollbar } from 'use-scrollbars'
 import { ref } from 'vue'
 
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    age: 24,
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    age: 18,
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    age: 12,
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    age: 22,
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
-
-const nameProp = ref('name')
-
-function handleChageNameProp() {
-  nameProp.value = nameProp.value === 'name' ? 'age' : 'name'
-}
+const elemRef = ref<HTMLElement>()
+useScrollbar(elemRef)
 </script>
+
+<style scoped>
+.complex-component-example {
+  position: relative;
+  width: 600px;
+  height: 372px;
+  border: solid 2px black;
+  background: #eeeeee;
+}
+
+.content-wrapper {
+  overflow: auto auto;
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  box-sizing: border-box;
+}
+
+.complex-component-example .content {
+  margin: 0;
+  width: max-content;
+  color: #000000;
+}
+
+.complex-component-example.cutom-scrollbar .content-wrapper::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+</style>

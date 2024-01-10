@@ -6,7 +6,12 @@
       v-bind="searchBinding"
     />
 
-    <pro-table v-if="tableShow.value" ref="proTableRef" v-bind="tableBinding" />
+    <pro-table
+      v-if="tableShow.value"
+      ref="proTableRef"
+      class="pro-crud-table"
+      v-bind="tableBinding"
+    />
 
     <pro-dialog
       v-if="modalShow?.value"
@@ -40,3 +45,15 @@ const proTableRef = inject(ProTableRef)
 
 defineProps<ProCrudProps<T, S, A, E>>()
 </script>
+
+<style scoped>
+.pro-crud {
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-crud-table {
+  flex: 1;
+  overflow: auto;
+}
+</style>

@@ -300,6 +300,11 @@ export type BuildProTableOptionResult<
   editable?: ProTableEditable<T>
 
   /**
+   * 是否自动填充父元素
+   */
+  autoFill?: boolean
+
+  /**
    * 获取数据请求
    */
   fetchTableData?: FetchTableListRequest<T, P>
@@ -383,11 +388,7 @@ export interface ProvideEditTableOptions<T> extends ProTableEditableOptions<T> {
   editRowKeys: Ref<Key[]>
   values: Record<string, any>
 
-  getRowKey(
-    record: T
-    // index: number,
-    // rowKey?: Key | GetRowKey<T> | undefined
-  ): Key
+  getRowKey(record: T): Key
 }
 
 /**
@@ -401,6 +402,7 @@ export interface BuildProTableBinding<T extends object> {
   scope: ProTableScope<T>
   toolbar: ComputedRef<InternalProTableToolbarOption>
   editableTableData: ProvideEditTableOptions<T> | undefined
+  autoFill: boolean
 }
 
 /**
@@ -426,6 +428,11 @@ export interface ProTableScope<T> {
    * 加载下一页
    */
   next(): Promise<void>
+
+  /**
+   * 获取 ATable ref
+   */
+  getTableRef(): Ref<any>
 
   /**
    * 开始编辑

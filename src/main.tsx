@@ -9,6 +9,8 @@ import { router } from './routes'
 
 import { ProComponents } from '~/index'
 
+import 'use-scrollbars/dist/style.css'
+
 const app = createApp(App)
 
 app.component(BasicDialog.name, BasicDialog)

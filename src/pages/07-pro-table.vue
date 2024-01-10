@@ -1,8 +1,11 @@
 <template>
-  <pro-table v-bind="proTableBinding" />
+  <pro-table class="pro-table-07" v-bind="proTableBinding" />
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { useScrollbar } from 'use-scrollbars'
+import { onMounted, ref } from 'vue'
+
+import 'use-scrollbars/dist/style.css'
 
 import { buildTable } from '~/components/ProTable'
 
@@ -10,21 +13,84 @@ const data = [
   {
     key: '1',
     name: 'John Brown',
-    age: 32,
+    age: 1,
     address: 'New York No. 1 Lake Park',
     tags: ['nice', 'developer'],
   },
   {
     key: '2',
     name: 'Jim Green',
-    age: 42,
+    age: 2,
     address: 'London No. 1 Lake Park',
     tags: ['loser'],
   },
   {
     key: '3',
     name: 'Joe Black',
-    age: 32,
+    age: 3,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+  {
+    key: '4',
+    name: 'John Brown',
+    age: 4,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '5',
+    name: 'Jim Green',
+    age: 5,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '6',
+    name: 'Joe Black',
+    age: 6,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+  {
+    key: '7',
+    name: 'John Brown',
+    age: 7,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '8',
+    name: 'Jim Green',
+    age: 8,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '9',
+    name: 'Joe Black',
+    age: 9,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+  {
+    key: '10',
+    name: 'John Brown',
+    age: 10,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '11',
+    name: 'Jim Green',
+    age: 11,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '12',
+    name: 'Joe Black',
+    age: 12,
     address: 'Sidney No. 1 Lake Park',
     tags: ['cool', 'teacher'],
   },
@@ -34,7 +100,21 @@ const nameColShow = ref(false)
 const nameColLabel = ref('Name')
 const ageKey = ref('age')
 
-const { proTableBinding } = buildTable(() => {
+const { proTableBinding } = buildTable(scope => {
+  onMounted(() => {
+    const $table = scope.getTableRef().value
+    const $container = $table.$el.querySelector('.ant-table-container')
+    const $header = $table.$el.querySelector('.ant-table-header')
+
+    const barStates = useScrollbar($container)
+
+    barStates.setOffset({
+      y: {
+        top: $header,
+      },
+    })
+  })
+
   return {
     columns: [
       {
@@ -63,15 +143,15 @@ const { proTableBinding } = buildTable(() => {
         name: 'address',
         key: 'address',
       },
-      {
-        label: 'Tags',
-        key: 'tags',
-        name: 'tags',
-      },
-      {
-        label: 'Action',
-        key: 'action',
-      },
+      // {
+      //   label: 'Tags',
+      //   key: 'tags',
+      //   name: 'tags',
+      // },
+      // {
+      //   label: 'Action',
+      //   key: 'action',
+      // },
     ],
 
     data,
@@ -100,45 +180,31 @@ const { proTableBinding } = buildTable(() => {
         },
       },
     },
+
+    tableProps: {
+      rowKey: 'key',
+    },
+
+    autoFill: true,
   }
 })
-
-// const columns = ref<TableColumnsType>([
-//   {
-//     dataIndex: 'name',
-//     key: 'name',
-//     resizable: true,
-//     width: 150,
-//   },
-//   {
-//     title: 'Age',
-//     dataIndex: 'age',
-//     key: 'age',
-//     resizable: true,
-//     width: 100,
-//     minWidth: 100,
-//     maxWidth: 200,
-//   },
-//   {
-//     title: 'Address',
-//     dataIndex: 'address',
-//     key: 'address',
-//   },
-//   {
-//     title: 'Tags',
-//     key: 'tags',
-//     dataIndex: 'tags',
-//   },
-//   {
-//     title: 'Action',
-//     key: 'action',
-//   },
-// ])
-
-// const c1 = computed(() => [reactive({ name: 'IconMan' })])
-// console.log(1, c1.value[0])
-// function handleResizeColumn(w: number, col: TableColumnType) {
-//   console.log(1, col)
-//   col.width = w
-// }
 </script>
+
+<style scoped>
+.pro-table-07 {
+  height: 100%;
+}
+
+.pro-table-07 :deep(.ant-table-container) {
+  position: relative;
+}
+
+.pro-table-07 :deep(.ant-table-body) {
+  scrollbar-width: none;
+}
+
+.pro-table-07 :deep(.ant-table-body::-webkit-scrollbar) {
+  width: 0;
+  height: 0;
+}
+</style>
